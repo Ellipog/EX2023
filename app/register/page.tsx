@@ -42,21 +42,48 @@ export default function Register() {
     return re.test(email);
   }
 
+  const handleKeyDown = (event: { key: string }) => {
+    if (event.key === "Enter") {
+      register();
+    }
+  };
+
   return (
     <main className="w-screen h-screen bg-[#c6cdd4] flex flex-row">
       <div className="w-full h-full flex justify-center items-center ">
         <div className="flex justify-center items-center flex-col w-96 h-[30rem] bg-[#EEE3CB] gap-4 shadow-lg p-52">
           <h1 className="text-3xl font-bold text-[#967E76]">Register</h1>
           <div className="flex flex-col gap-4 p-5">
-            <input className="p-2 text-left w-72 bg-[#fff3d8] text-[#967E76] shadow" type="email" value={email} placeholder="E-Mail..." onChange={(e) => setEmail(e.target.value)} />
-            <input className="p-2 text-left w-72 bg-[#fff3d8] text-[#967E76] shadow" type="password" value={password} placeholder="Password..." onChange={(e) => setPassword(e.target.value)} />
-            <input className="p-2 text-left w-72 bg-[#fff3d8] text-[#967E76] shadow" type="password" value={password2} placeholder="Password..." onChange={(e) => setPassword2(e.target.value)} />
+            <input
+              className="p-2 text-left w-72 bg-[#fff3d8] text-[#967E76] shadow"
+              onKeyDown={handleKeyDown}
+              type="email"
+              value={email}
+              placeholder="E-Mail..."
+              onChange={(e) => setEmail(e.target.value)}
+            />
+            <input
+              className="p-2 text-left w-72 bg-[#fff3d8] text-[#967E76] shadow"
+              onKeyDown={handleKeyDown}
+              type="password"
+              value={password}
+              placeholder="Password..."
+              onChange={(e) => setPassword(e.target.value)}
+            />
+            <input
+              className="p-2 text-left w-72 bg-[#fff3d8] text-[#967E76] shadow"
+              onKeyDown={handleKeyDown}
+              type="password"
+              value={password2}
+              placeholder="Password..."
+              onChange={(e) => setPassword2(e.target.value)}
+            />
           </div>
           <button className="p-2 text-center bg-[#fff3d8] text-[#967E76] w-72 shadow hover:bg-[#f5e9ce] hover:rotate-[0.5deg] transition-all" onClick={() => register()}>
-            Registrer
+            Register
           </button>
           <Link href="/login">
-            <button className="p-2 text-center bg-[#fff3d8] text-[#967E76] w-72 shadow hover:bg-[#f5e9ce] hover:rotate-[-0.5deg] transition-all">Create an account</button>
+            <button className="p-2 text-center bg-[#fff3d8] text-[#967E76] w-72 shadow hover:bg-[#f5e9ce] hover:rotate-[-0.5deg] transition-all">Already have an account</button>
           </Link>
         </div>
       </div>
