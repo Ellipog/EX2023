@@ -19,10 +19,11 @@ export default function Home() {
 			image: "https://o.remove.bg/downloads/37653457-de73-4ab2-93a4-0ae754235252/ec1db635d6d2cebd8b41b75144d49fa3--vintage-typewriters-vintage-cameras-removebg-preview.png",
 		},
 	]);
+	const [cart, setCart] = useState([]);
 
 	return (
 		<main className="flex w-screen h-screen flex-col items-center justify-center bg-[#c6cdd4]">
-			<Navbar />
+			<Navbar cart={cart} />
 			<h1 className="text-[#967E76] font-bold text-4xl mt-8 bg-[#fff3d8] p-3 rotate-1 shadow">Products</h1>
 			<div className="h-full w-9/12 grid grid-cols-4">
 				{Object.values(items).map((items, i) => {

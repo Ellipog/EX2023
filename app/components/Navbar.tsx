@@ -2,7 +2,9 @@
 import Link from "next/link";
 import React from "react";
 
-type Props = {};
+type Props = {
+	cart: any;
+};
 
 const Navbar = (props: Props) => {
 	return (
@@ -13,10 +15,15 @@ const Navbar = (props: Props) => {
 					<p>RAM IT</p>
 				</div>
 			</Link>
-			<div>
+			<div className="flex gap-5 flex-row-reverse">
 				<Link href="/account">
 					<div className="flex justify-center items-center text-[#967E76] h-full font-bold text-xl">
 						<p>Account</p>
+					</div>
+				</Link>
+				<Link href="/cart">
+					<div className="flex justify-center items-center text-[#967E76] h-full font-bold text-xl">
+						<p>Cart ({props.cart.length})</p>
 					</div>
 				</Link>
 			</div>
