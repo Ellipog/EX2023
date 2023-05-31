@@ -15,7 +15,7 @@ const Navbar = (props: Props) => {
 					<p>RAM IT</p>
 				</div>
 			</Link>
-			<div className="flex gap-5 flex-row-reverse">
+			<div className="flex gap-7 flex-row-reverse">
 				<Link href="/account">
 					<div className="flex justify-center items-center text-[#967E76] h-full font-bold text-xl">
 						<p>Account</p>

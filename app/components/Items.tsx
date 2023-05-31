@@ -2,9 +2,12 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faShoppingCart } from "@fortawesome/free-solid-svg-icons";
+import { toast } from "react-hot-toast";
 
 type Props = {
 	items: any;
+	setCart: any;
+	cart: any;
 };
 
 const Navbar = (props: Props) => {
@@ -22,7 +25,14 @@ const Navbar = (props: Props) => {
 						<h1 className="text-[#967E76] font-medium">{props.items.name}</h1>
 						<h1 className="text-[#967E76] font-medium">{props.items.price} kr</h1>
 					</div>
-					<FontAwesomeIcon icon={faShoppingCart} className="w-10 h-10 text-[#967E76] hover: cursor-pointer" />
+					<FontAwesomeIcon
+						icon={faShoppingCart}
+						className="w-10 h-10 text-[#967E76] hover: cursor-pointer"
+						onClick={() => {
+							toast.success("Added to cart!");
+							props.setCart([...props.cart, { name: props.items.name, price: props.items.price }]);
+						}}
+					/>
 				</div>
 			</div>
 		</div>
