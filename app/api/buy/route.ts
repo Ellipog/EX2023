@@ -13,9 +13,9 @@ mongoose.connect(process.env.MONGODB);
 export async function POST(request: Request) {
   const body = await request.json();
   console.log(body);
-  const { user, id, item, quantity, price } = body;
+  const { user, id, item, quantity, price, address, zipcode } = body;
 
-  const newOrder = new dbOrder({ user: user, id: id, item: item, quantity: quantity, price: price });
+  const newOrder = new dbOrder({ user: user, id: id, item: item, quantity: quantity, price: price, address: address, zipcode: zipcode });
   const order = await newOrder.save();
 
   return NextResponse.json(order);

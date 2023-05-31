@@ -9,8 +9,13 @@ import axios from "axios";
 import { useSession } from "next-auth/react";
 import { useDispatch } from "react-redux";
 import { removeFromCart } from "../redux/cart.slice";
+import { useState } from "react";
 
 export default function Cart() {
+  const [address, setAddress] = useState("");
+  const [country, setCountry] = useState("");
+  const [city, setCity] = useState("");
+  const [zipcode, setZipcode] = useState("");
   const { data: session } = useSession();
   const cart: { [key: string]: any } = useSelector((state: { [key: string]: any }) => state.cart);
   const dispatch = useDispatch();
@@ -22,13 +27,27 @@ export default function Cart() {
   const buy = () => {
     if (cart.length === 0) {
       toast.error("Cart is empty");
+    } else if (!country || !address || !city || !zipcode) {
+      toast.error("Please fill in all fields");
     } else if (session) {
       let id = Date.now();
       cart.forEach((element: any) => {
-        axios.post("/api/buy", { user: session?.user.email, id: id, item: element.name, quantity: element.quantity, price: element.price * element.quantity });
+        axios.post("/api/buy", {
+          user: session?.user.email,
+          id: id,
+          item: element.name,
+          quantity: element.quantity,
+          price: element.price * element.quantity,
+          address: address,
+          zipcode: zipcode,
+        });
         dispatch(removeFromCart(element.name));
       });
       toast.success("Bought");
+      setAddress("");
+      setCountry("");
+      setCity("");
+      setZipcode("");
     } else {
       toast.error("Not logged in");
     }
@@ -37,18 +56,24 @@ export default function Cart() {
   return (
     <main className="flex w-screen h-screen flex-col items-center justify-center bg-[#c6cdd4]">
       <Navbar />
-      <h1 className="text-[#967E76] font-bold text-4xl mt-8 bg-[#fff3d8] p-3 rotate-[-1deg] shadow">Cart</h1>
+      <h1 className="text-[#967E76] font-bold text-4xl mt-8 bg-[#fff3d8] p-3 rotate-[-1deg] shadow">CART</h1>
       <div className="h-full w-full pl-12 overflow-scroll flex flex-row">
         <div className="w-7/12 grid grid-cols-3">
           {Object.values(cart).map((item, i) => {
             return <CartItems key={i} item={item} />;
           })}
         </div>
-        <div className="w-4/12 flex h-5/6 bg-[#fff3d8] fixed p-12 bottom-14 right-24 text-[#967E76] shadow-lg">
-          <div className="flex flex-col justify-start items-center w-full">
+        <div className="w-4/12 flex h-5/6 bg-[#EEE3CB] fixed p-12 bottom-14 right-24 text-[#967E76] shadow-lg">
+          <div className="flex flex-col justify-start items-center w-full gap-2">
             <p className="text-5xl mb-12 -rotate-2">RECEIPT</p>
             <p className="text-xl mb-8">TOTAL PRICE: {getTotalPrice()} kr</p>
-            <button className="w-5/6 h-12 bg-[#D7C0AE] m-4 text-xl shadow-md hover:bg-[#d4bdab] transition-all" onClick={() => buy()}>
+            <input className="p-2 text-left w-96 bg-[#fff3d8] text-[#967E76] shadow" type="text" value={country} placeholder="Country..." onChange={(e) => setCountry(e.target.value)} />
+            <input className="p-2 text-left w-96 bg-[#fff3d8] text-[#967E76] shadow" type="text" value={address} placeholder="Address..." onChange={(e) => setAddress(e.target.value)} />
+            <div className="w-96 flex flex-row justify-between items-center">
+              <input className="p-2 text-left w-52 bg-[#fff3d8] text-[#967E76] shadow" type="text" value={city} placeholder="City..." onChange={(e) => setCity(e.target.value)} />
+              <input className="p-2 text-left w-[10rem] bg-[#fff3d8] text-[#967E76] shadow" type="text" value={zipcode} placeholder="Zip..." onChange={(e) => setZipcode(e.target.value)} />
+            </div>
+            <button className="w-5/6 h-12 bg-[#D7C0AE] mt-8 m-4 text-xl shadow-md hover:bg-[#d4bdab] transition-all" onClick={() => buy()}>
               VIPPS
             </button>
             <button className="w-5/6 h-12 bg-[#D7C0AE] m-4 text-xl shadow-md hover:bg-[#d4bdab] transition-all" onClick={() => buy()}>
