@@ -23,8 +23,8 @@ export default function Home() {
 	return (
 		<main className="flex w-screen h-screen flex-col items-center justify-center bg-[#c6cdd4]">
 			<Navbar />
-			<h1 className="text-[#967E76] font-bold text-4xl mt-8">Products</h1>
-			<div className="h-full w-5/6 grid grid-cols-4">
+			<h1 className="text-[#967E76] font-bold text-4xl mt-8 bg-[#fff3d8] p-3 rotate-1 shadow">Products</h1>
+			<div className="h-full w-9/12 grid grid-cols-4">
 				{Object.values(items).map((items, i) => {
 					return <Items key={i} items={items} />;
 				})}
