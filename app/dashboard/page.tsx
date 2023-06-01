@@ -34,9 +34,9 @@ export default function Dashboard() {
 		<main className="flex w-screen h-screen flex-col items-center justify-center bg-[#c6cdd4]">
 			<Navbar />
 			<h1 className="text-[#967E76] font-bold text-4xl mt-8 bg-[#fff3d8] p-3 rotate-[-1deg] shadow">DASHBOARD</h1>
-			<div className="h-full w-full pl-12 overflow-scroll flex flex-row">
+			<div className="h-full w-full pl-12 overflow-scroll grid grid-cols-4">
 				{Object.values(groupedOrders).map((orders, i) => {
-					return <Order key={i} item={orders} />;
+					return <Order key={i} orders={orders} />;
 				})}
 			</div>
 		</main>
